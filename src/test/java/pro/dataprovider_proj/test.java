@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -31,8 +33,15 @@ public class test {
 	    boolean isLoginSuccessful;
 
 	    try {
-	        isLoginSuccessful =
-	            driver.findElement(By.xpath("//h2[text()='My Account']")).isDisplayed();
+	    	  WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    	    WebElement myAccountHeading = wait.until(
+	    	        ExpectedConditions.visibilityOfElementLocated(
+	    	            By.xpath("//h2[text()='My Account']")
+	    	        )
+	    	    );
+
+	    	    isLoginSuccessful = myAccountHeading.isDisplayed();
 	    } catch (Exception e) {
 	        isLoginSuccessful = false;
 	    }
